@@ -1,15 +1,17 @@
 import React from 'react'
-import Carte from './views/Carte'
-import { ScreenOrientation } from 'expo';
-  
+import { ScreenOrientation } from 'expo'
+import { StatusBar } from 'react-native'
+import Navigation  from './Navigation/Navigation'
+ 
 export default class App extends React.Component {
-	componentWillMount() {	 
+
+	componentWillMount() {
 
 	}
 	 
 	  componentDidMount() {
 		ScreenOrientation.allowAsync(ScreenOrientation.Orientation.LANDSCAPE);
-
+		StatusBar.setHidden(true);
 	  }
 	 
 	  componentWillUnmount() {
@@ -18,15 +20,7 @@ export default class App extends React.Component {
   
 	render() {
 		return (
-
-			<Carte>
-
-			</Carte>
-
-			
-			// <Provider store={store}>
-			// 	<Navigation/>
-			// </Provider>
+			<Navigation/>
 		)
 	}
 }
