@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import {ScrollView, View, Text, Image, StyleSheet} from 'react-native'
-import { AuthSession } from 'expo';
+import {ScrollView,Platform, View, Text, Image, StyleSheet} from 'react-native'
+import Notifications  from './Notifactions';
 
 class Carte extends Component {
 	render() {
@@ -11,9 +11,8 @@ class Carte extends Component {
 					<View style={styles.image}>
 						<Image style={{width:100}} source={require('../assets/carte.jpg')}/>
 					</View>
-					<View 
-						style={styles.notifContainer}>
-						<Text style={styles.title_text}>Notification</Text>
+					<View style={styles.notifContainer}>
+						<Notifications/>
 					</View>
 				</View>
 
@@ -51,8 +50,6 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 	},
 	notifContainer: {
-		borderWidth: 1,
-		borderColor: '#fff',
 		flex:1,
 		textAlign:'center'
 	},
@@ -64,8 +61,6 @@ const styles = StyleSheet.create({
 	image: {
 		flex:3,
 		padding:30,
-		borderWidth: 1,
-		borderColor: 'red',
 		position:'relative',
 		overflow:'hidden'
 	},
@@ -75,7 +70,7 @@ const styles = StyleSheet.create({
 		position:'absolute',
 		bottom: 15,
 		right:30,
-		borderRadius:50
+		borderRadius:(Platform.OS == 'ios') ? 50 : 50
 	},
 	title_text: {
 	  fontWeight: 'bold',
