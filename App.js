@@ -1,6 +1,6 @@
 import React from 'react'
 import { ScreenOrientation } from 'expo'
-import { StatusBar } from 'react-native'
+import { StatusBar, View, Text } from 'react-native'
 import Navigation  from './Navigation/Navigation'
  
 export default class App extends React.Component {
@@ -20,7 +20,7 @@ export default class App extends React.Component {
   
 	render() {
 		return (
-			<Navigation/>
+			<View><Text>Salut</Text></View>
 		)
 	}
 }
