@@ -17,7 +17,7 @@ export default class ActionMenu extends Component {
     appear = () =>
     {
         this.animatedValue.setValue(0);
-        
+         
         this.setState({ disabled: true}, () =>
         {
             Animated.timing(
