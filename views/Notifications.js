@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { View, Text, Platform, StyleSheet, TouchableOpacity, Animated, ScrollView, Image } from 'react-native';
-export default class Notifications extends Component<{}> {
+export default class Notifications extends Component{
     constructor()
     {
         super();
@@ -94,7 +94,7 @@ const styles = StyleSheet.create(
         viewHolder:
         {
             height: 55,
-            backgroundColor: '#4454a6',
+            backgroundColor: '#000',
             justifyContent: 'center',
             alignItems: 'center',
             margin: 4

@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
-import {ScrollView,Platform, View, Text, Image, StyleSheet} from 'react-native'
-import Notifications  from './Notifactions';
+import {Platform, View, Text, Image, StyleSheet} from 'react-native'
+import Notifications from './Notifications';
+import ActionMenu from './ActionMenu';
 
 class Carte extends Component {
 	render() {
@@ -22,10 +23,8 @@ class Carte extends Component {
 						<View style={styles.ressources}><Text style={styles.text}>3</Text></View>
 						<View style={styles.ressources}><Text style={styles.text}>4</Text></View>
 				</View>
-				<Image
-							style={styles.profile}
-							source={require('../assets/carte.jpg')}
-						/>
+				<Image style={styles.profile} source={require('../assets/ant.jpg')}/>
+				<ActionMenu/>
 			</View>
 		)
 	}
@@ -34,19 +33,19 @@ class Carte extends Component {
 const styles = StyleSheet.create({
 	main_container: {
 		color:'#fff',
-		backgroundColor: '#263238',
+		backgroundColor: '#4454a6',
 		flexDirection: 'column',
 		position:'relative',
 		flex:10
 	},
 	second_container: {
-		backgroundColor: '#263238',
+		backgroundColor: '#4454a6',
 		flexDirection: 'row',
 		flex:9
 	},
 	ressources_container: {
 		flex:1,
-		backgroundColor: '#263238',
+		backgroundColor: '#141414',
 		flexDirection: 'row',
 	},
 	notifContainer: {

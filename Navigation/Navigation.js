@@ -5,6 +5,7 @@ import Carte from '../views/Carte'
 
 
 
+
 const CarteNavigator = createStackNavigator({
 	MainScreen: {
 		screen: Carte,
