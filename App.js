@@ -28,7 +28,7 @@ export default class App extends React.Component {
 	  componentDidMount() {
 			ScreenOrientation.allowAsync(ScreenOrientation.Orientation.LANDSCAPE);
 			StatusBar.setHidden(true);
-			const socket = io('https://d237509c.ngrok.io', {
+			const socket = io('https://b5d8d801.ngrok.io', {
 				transports: ['websocket'],
 			})
 

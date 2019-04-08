@@ -2,16 +2,28 @@ import React, {Component} from 'react'
 import {Platform, View, Text, Image, StyleSheet} from 'react-native'
 import Notifications from './Notifications';
 import ActionMenu from './ActionMenu';
+import FlipCard from 'react-native-flip-card'
+
 
 class Carte extends Component {
+	componentWillMount() {
+	  }
+	  componentDidMount() {
+	  }
 	render() {
+		
 		return (
 			<View style={styles.main_container}>
 
 				<View style={styles.second_container}>
-					<View style={styles.image}>
-						<Image style={{width:100}} source={require('../assets/carte.jpg')}/>
-					</View>
+					<FlipCard>
+						<View style={styles.image}>
+							<Image style={{width:500}} source={require('../assets/carte.jpg')}/>
+						</View>
+						<View style={styles.backface}>
+							<Text style={{color:'#fff'}}>The Back</Text>
+						</View>
+					</FlipCard>
 					<View style={styles.notifContainer}>
 						<Notifications/>
 					</View>
@@ -62,6 +74,10 @@ const styles = StyleSheet.create({
 		padding:30,
 		position:'relative',
 		overflow:'hidden'
+	},
+	backface: {
+		flex:3,
+		backgroundColor:"#000",
 	},
 	profile: {
 		width:60,
