@@ -26,7 +26,7 @@ const CarteNavigator = createStackNavigator({
 	diceLauncherScreen: {
 		screen: diceLauncher,
 		navigationOptions: {
-			title:'Map',
+			title:'dice Launcher',
 			header: null,
 		}
 	}

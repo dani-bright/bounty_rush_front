@@ -9,7 +9,7 @@ class playerPicker extends Component {
 	constructor()
 	{
 			super();
-			this.state = { disabled: false,playerId:0 }
+			this.state = { disabled: false}
 			this.animatedValue = new Animated.Value(0);
 			
 	}
@@ -41,10 +41,8 @@ class playerPicker extends Component {
 		this.props.navigation.navigate('diceLauncherScreen')
 	}
 
-	showStatsForPlayer = (playerId,url) => {
-		console.log(playerId)
-		this.props.changePlayer(url)
-		this.setState({ playerId: playerId })
+	showStatsForPlayer = (player) => {
+		this.props.changePlayer(player)
 		this.appear()
 	}
 	
@@ -63,7 +61,7 @@ class playerPicker extends Component {
 								players.map((item, i) => (
 									<View key={i}
 										style={styles.player}>
-										<TouchableOpacity onPress={()=>this.showStatsForPlayer(item.id,item.url)}>
+										<TouchableOpacity onPress={()=>this.showStatsForPlayer(item)}>
 											<Image
 												style={styles.image}
 												source={item.url}
@@ -86,25 +84,25 @@ class playerPicker extends Component {
 					<Animated.View style = {[ styles.stats, { opacity: this.animatedValue, transform: [{ translateX: animationValue }] }]}>
 						<Image
 							style={{width: 50, height: 50, marginBottom: 20}}
-							source={this.props.selectedPlayer}
+							source={this.props.selectedPlayer.url}
 						/>
-						<Text style = { styles.text }>{players[this.state.playerId].name}</Text>
+						<Text style = { styles.text }>{this.props.selectedPlayer.name}</Text>
             <View style={styles.actions}>
-							<Text style = { styles.text }> skills: {players[this.state.playerId].skills}</Text>
-							<Text style = { styles.text }>{players[this.state.playerId].desciption}</Text>
-                <Text style = { styles.text }>money: {players[this.state.playerId].money}</Text>
-								<Text style = { styles.text }>intel: {players[this.state.playerId].intel}</Text>
-								<Text style = { styles.text }>{players[this.state.playerId].description}</Text>
-								<Text style = { styles.text }>item: {players[this.state.playerId].items.map(function(item){
+							<Text style = { styles.text }> skills: {this.props.selectedPlayer.skills}</Text>
+							<Text style = { styles.text }>{this.props.selectedPlayer.desciption}</Text>
+                <Text style = { styles.text }>money: {this.props.selectedPlayer.money}</Text>
+								<Text style = { styles.text }>intel: {this.props.selectedPlayer.intel}</Text>
+								<Text style = { styles.text }>{this.props.selectedPlayer.description}</Text>
+								<Text style = { styles.text }>item: {this.props.selectedPlayer.items.map(function(item){
 									return item;
 								}).join(" | ")} 
 								</Text>
             </View>
 						<View style={styles.spaceShipStats}>
-								<Text style = { styles.text }>vaisseau: {players[this.state.playerId].spaceship.name} | </Text>
-								<Text style = { styles.text }>health: {players[this.state.playerId].spaceship.health} | </Text>
-								<Text style = { styles.text }>sloth: {players[this.state.playerId].spaceship.sloth} | </Text>
-								<Text style = { styles.text }>description: {players[this.state.playerId].spaceship.description}</Text>
+								<Text style = { styles.text }>vaisseau: {this.props.selectedPlayer.spaceship.name} | </Text>
+								<Text style = { styles.text }>health: {this.props.selectedPlayer.spaceship.health} | </Text>
+								<Text style = { styles.text }>sloth: {this.props.selectedPlayer.spaceship.sloth} | </Text>
+								<Text style = { styles.text }>description: {this.props.selectedPlayer.spaceship.description}</Text>
             </View>
           </Animated.View>
 				</View>
@@ -197,7 +195,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {//dispatch est dispo grace à la connexion au store et premet d'envoyer les actions
 	return {
-		changePlayer : (url) => dispatch(changeSelectedPlayer(url))
+		changePlayer : (player) => dispatch(changeSelectedPlayer(player))
 	}
 }
 
