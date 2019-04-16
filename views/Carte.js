@@ -1,22 +1,45 @@
 import React, {Component} from 'react'
 import {Platform, View, Text, Image, StyleSheet} from 'react-native'
 import Notifications from './Notifications';
+import {connect} from 'react-redux'
 import ActionMenu from './ActionMenu';
 import FlipCard from 'react-native-flip-card'
 
 
+
 class Carte extends Component {
-	componentWillMount() {
+	constructor (props) {
+		super(props)
+		this.state = {
+		  flip: false
+		}
 	  }
-	  componentDidMount() {
-	  }
-	render() {
+
+	  printText(isFlipEnd){
+		  if(isFlipEnd){
+			console.log('isFlipEnd', isFlipEnd)
+			
+		  }
 		
+	  }
+
+	render() {
 		return (
 			<View style={styles.main_container}>
 
 				<View style={styles.second_container}>
-					<FlipCard>
+					<FlipCard
+						flip={this.state.flip}
+						friction={6}
+						perspective={1000}
+						flipHorizontal={true}
+						flipVertical={false}
+						clickable={true}
+						style={styles.card}
+						alignHeight={true}
+						// alignWidth={true}
+						onFlipEnd={(isFlipEnd)=>{this.printText(isFlipEnd)}}
+					>
 						<View style={styles.image}>
 							<Image style={{width:500}} source={require('../assets/carte.jpg')}/>
 						</View>
@@ -35,7 +58,7 @@ class Carte extends Component {
 						<View style={styles.ressources}><Text style={styles.text}>3</Text></View>
 						<View style={styles.ressources}><Text style={styles.text}>4</Text></View>
 				</View>
-				<Image style={styles.profile} source={require('../assets/ant.jpg')}/>
+				<Image style={styles.profile} source={this.props.selectedPlayer}/>
 				<ActionMenu/>
 			</View>
 		)
@@ -99,4 +122,8 @@ const styles = StyleSheet.create({
   })
 
 
-export default Carte
+  const mapStateToProps = (state) => ({
+	selectedPlayer: state.player.selectedPlayer
+})
+
+export default connect(mapStateToProps)(Carte)

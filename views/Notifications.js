@@ -12,27 +12,27 @@ export default class Notifications extends Component{
         this.animatedValue = new Animated.Value(0);
     }
  
-    toggleNotification = () =>
+    toggleNotification = (text) =>
     {
         this.animatedValue.setValue(0);
  
-    let newlyAddedValue = { index: this.index }
- 
-    this.setState({ disabled: true, valueArray: [ ...this.state.valueArray, newlyAddedValue ] }, () =>
-    {
-        Animated.timing(
-            this.animatedValue,
-            {
-                toValue: 1,
-                duration: 500,
-                useNativeDriver: true
-            }
-        ).start(() =>
+        let newlyAddedValue = { index: this.index }
+    
+        this.setState({ disabled: true, valueArray: [ ...this.state.valueArray, newlyAddedValue ] }, () =>
         {
-            this.index = this.index + 1;
-            this.setState({ disabled: false });
-        }); 
-    });    
+            Animated.timing(
+                this.animatedValue,
+                {
+                    toValue: 1,
+                    duration: 500,
+                    useNativeDriver: true
+                }
+            ).start(() =>
+            {
+                this.index = this.index + 1;
+                this.setState({ disabled: false });
+            }); 
+        });    
     }
  
 

@@ -1,8 +1,12 @@
 import React from 'react'
+import {Provider} from 'react-redux'
+import {createStore} from 'redux'
+import rootReducer from './reducers'
 import { ScreenOrientation } from 'expo'
 import { StatusBar,View, Text, StyleSheet,TouchableOpacity } from 'react-native'
 import Navigation  from './Navigation/Navigation'
 const io = require('socket.io-client');
+const store = createStore(rootReducer)
 
 import { YellowBox } from 'react-native';
 YellowBox.ignoreWarnings([
@@ -28,22 +32,22 @@ export default class App extends React.Component {
 	  componentDidMount() {
 			ScreenOrientation.allowAsync(ScreenOrientation.Orientation.LANDSCAPE);
 			StatusBar.setHidden(true);
-			const socket = io('https://b5d8d801.ngrok.io', {
-				transports: ['websocket'],
-			})
+			// const socket = io('https://b5d8d801.ngrok.io', {
+			// 	transports: ['websocket'],
+			// })
 
-			socket.on('connect', () => {
-				console.log("socket connected");
-				this.setState({ isConnected: true });
-			})
+			// socket.on('connect', () => {
+			// 	console.log("socket connected");
+			// 	this.setState({ isConnected: true });
+			// })
 
-			socket.on('connect_error', (err) => {
-				console.log(err)
-			})
+			// socket.on('connect_error', (err) => {
+			// 	console.log(err)
+			// })
 
-			socket.on('disconnect', () => {
-				console.log("Disconnected Socket!")
-			})
+			// socket.on('disconnect', () => {
+			// 	console.log("Disconnected Socket!")
+			// })
 
 	  }
 	 
@@ -53,7 +57,9 @@ export default class App extends React.Component {
   
 	render() {
 		return (
-			<Navigation/>
+			<Provider store={store}>
+				<Navigation/>
+			</Provider>
 		)
 	}
 }
