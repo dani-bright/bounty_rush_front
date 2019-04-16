@@ -3,6 +3,7 @@ import {ScrollView,Animated,TouchableOpacity,Button, View, Text, Image, StyleShe
 import {connect} from 'react-redux'
 import {changeSelectedPlayer} from "../actions"
 import players from '../players'
+import A from '../API/Api'
 
 
 class playerPicker extends Component {
@@ -11,11 +12,15 @@ class playerPicker extends Component {
 			super();
 			this.state = { disabled: false}
 			this.animatedValue = new Animated.Value(0);
+			this.Api= A;
+			this.Players= this.Api.AllPlayer();
 			
 	}
 
 	componentDidMount() {
-}
+		console.log(this.Players)
+	}
+
  
 
 	appear = () =>
@@ -47,6 +52,8 @@ class playerPicker extends Component {
 	}
 	
 	render() {
+		this.Api.AllPlayer()
+		
 		const animationValue = this.animatedValue.interpolate(
 			{
 					inputRange: [ 0, 1 ],

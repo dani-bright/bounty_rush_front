@@ -4,13 +4,14 @@ import  {createAppContainer, createBottomTabNavigator, createStackNavigator} fro
 import Carte from '../views/Carte'
 import playerPicker from '../views/playerPicker'
 import diceLauncher from '../views/diceLauncher'
+import Api from '../API/Api.js'//test
 
 
 
 
 const CarteNavigator = createStackNavigator({
 	MainScreen: {
-		screen: playerPicker,
+		screen: Api,
 		navigationOptions: {
 			title:'playerPicker',
 			header: null,

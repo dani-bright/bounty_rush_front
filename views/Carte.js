@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import {Platform, View, Text, Image, StyleSheet} from 'react-native'
-import Notifications from './Notifications';
+import Notifications from './Notifications'
 import {connect} from 'react-redux'
-import ActionMenu from './ActionMenu';
+import ActionMenu from './ActionMenu'
 import FlipCard from 'react-native-flip-card'
 
 
@@ -27,7 +27,6 @@ class Carte extends Component {
 		console.log("la valeur du lancé est de "+this.props.diceThrowValue)
 		return (
 			<View style={styles.main_container}>
-
 				<View style={styles.second_container}>
 					<FlipCard
 						flip={this.state.flip}
