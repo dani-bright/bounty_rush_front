@@ -24,6 +24,7 @@ class Carte extends Component {
 	  }
 
 	render() {
+		console.log("la valeur du lancé est de "+this.props.diceThrowValue)
 		return (
 			<View style={styles.main_container}>
 
@@ -58,7 +59,7 @@ class Carte extends Component {
 						<View style={styles.ressources}><Text style={styles.text}>3</Text></View>
 						<View style={styles.ressources}><Text style={styles.text}>4</Text></View>
 				</View>
-				<Image style={styles.profile} source={this.props.selectedPlayer}/>
+				<Image style={styles.profile} source={this.props.selectedPlayer.url}/>
 				<ActionMenu/>
 			</View>
 		)
@@ -123,7 +124,8 @@ const styles = StyleSheet.create({
 
 
   const mapStateToProps = (state) => ({
-	selectedPlayer: state.player.selectedPlayer
+	selectedPlayer: state.player.selectedPlayer,
+	diceThrowValue: state.player.diceThrowValue
 })
 
 export default connect(mapStateToProps)(Carte)

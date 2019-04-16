@@ -3,9 +3,8 @@ import {Provider} from 'react-redux'
 import {createStore} from 'redux'
 import rootReducer from './reducers'
 import { ScreenOrientation } from 'expo'
-import { StatusBar,View, Text, StyleSheet,TouchableOpacity } from 'react-native'
+import { StatusBar } from 'react-native'
 import Navigation  from './Navigation/Navigation'
-const io = require('socket.io-client');
 const store = createStore(rootReducer)
 
 import { YellowBox } from 'react-native';

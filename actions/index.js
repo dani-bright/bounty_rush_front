@@ -1,4 +1,9 @@
-export const changeSelectedPlayer = url => ({
+export const changeSelectedPlayer = player => ({
 	type: 'CHANGE_PLAYER',
-	url
+	player
+})
+
+export const diceLaunchValue = nb => ({
+	type: 'THROW_DICE',
+	nb
 })
