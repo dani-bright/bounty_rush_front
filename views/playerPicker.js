@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {changeSelectedPlayer} from "../actions"
 import players from '../players'
 import A from '../API/Api'
+import PlayerStats from './playerStats'
 
 
 class playerPicker extends Component {
@@ -52,7 +53,7 @@ class playerPicker extends Component {
 	}
 	
 	render() {
-		this.Api.AllPlayer()
+		//this.Api.AllPlayer()
 		
 		const animationValue = this.animatedValue.interpolate(
 			{
@@ -89,28 +90,7 @@ class playerPicker extends Component {
 							}
 					</ScrollView>
 					<Animated.View style = {[ styles.stats, { opacity: this.animatedValue, transform: [{ translateX: animationValue }] }]}>
-						<Image
-							style={{width: 50, height: 50, marginBottom: 20}}
-							source={this.props.selectedPlayer.url}
-						/>
-						<Text style = { styles.text }>{this.props.selectedPlayer.name}</Text>
-            <View style={styles.actions}>
-							<Text style = { styles.text }> skills: {this.props.selectedPlayer.skills}</Text>
-							<Text style = { styles.text }>{this.props.selectedPlayer.desciption}</Text>
-                <Text style = { styles.text }>money: {this.props.selectedPlayer.money}</Text>
-								<Text style = { styles.text }>intel: {this.props.selectedPlayer.intel}</Text>
-								<Text style = { styles.text }>{this.props.selectedPlayer.description}</Text>
-								<Text style = { styles.text }>item: {this.props.selectedPlayer.items.map(function(item){
-									return item;
-								}).join(" | ")} 
-								</Text>
-            </View>
-						<View style={styles.spaceShipStats}>
-								<Text style = { styles.text }>vaisseau: {this.props.selectedPlayer.spaceship.name} | </Text>
-								<Text style = { styles.text }>health: {this.props.selectedPlayer.spaceship.health} | </Text>
-								<Text style = { styles.text }>sloth: {this.props.selectedPlayer.spaceship.sloth} | </Text>
-								<Text style = { styles.text }>description: {this.props.selectedPlayer.spaceship.description}</Text>
-            </View>
+						<PlayerStats/>
           </Animated.View>
 				</View>
 				<Button style={styles.date_container} onPress={() => this.toNextScreen()} title="ok" color="#841584"/>

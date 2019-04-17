@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Platform, View, Text} from 'react-native'
 const io = require('socket.io-client');
-const socket = io('https://4c7664f3.ngrok.io', {
+const socket = io('https://9cda9fca.ngrok.io', {
 transports: ['websocket'],
 })
 let listPlayer;
@@ -298,7 +298,7 @@ class Api extends Component{
 	}
 }
 const A = new Api();
-export default Api;
+export default A;
 
 
 

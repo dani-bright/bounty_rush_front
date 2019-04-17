@@ -1,120 +1,123 @@
-
-import React from 'react'
-import { StyleSheet, View, Text, ActivityIndicator, ScrollView, Image, TouchableOpacity } from 'react-native'
-import { connect } from 'react-redux'
-import {getPlayerDetail} from '../API/TMDApi'
-
-
-
-class PlayerStats extends React.Component {
-  constructor(props){
-      super(props);
-      this.state = { 
-          player: undefined,
-      }
-  }
-
-  componentDidMount(){
-    getPlayerDetail(this.props.navigation.state.params.playerId).then(data=>{
-      this.setState({
-        player:data,
-      })
-    });
-  }
-
-  componentDidUpdate() {
-    console.log("componentDidUpdate : ")
-  }
+import React, {Component} from 'react'
+import {ScrollView,Animated,TouchableOpacity,Button, View, Text, Image, StyleSheet} from 'react-native'
+import {connect} from 'react-redux'
+import players from '../players'
+import A from '../API/Api'
 
 
-
-  _displayPlayer() {
-    const { player } = this.state
-    if (player != undefined) {
-      return (
-        <ScrollView style={styles.scrollview_container}>
-          <Image
-            style={styles.image}
-            source={{uri: getImageFromApi(player.backdrop_path)}}
-          />
-          <Text style={styles.title_text}>{player.name}</Text>
-
-          <Text style={styles.description_text}>skills:{player.skills}</Text>
-          <Text style={styles.default_text}>money:{player.money}</Text>
-          <Text style={styles.default_text}>intel : {player.intel}</Text>
-          <Text style={styles.default_text}>{player.description}</Text>
-
-
-          <Text style={styles.default_text}>Companie(s) : {player.vaisseau.map(function(stat){
-              return stat;
-            }).join(" / ")}
-          </Text>
-        </ScrollView>
-      )
-    }
-  }
-
-  render() {
-    console.log(this.props)//devrait afficher favoritesFilm dans les props du component grace à la connexion avec le store
-    return (
-      <View style={styles.main_container}>
-        {this._displayPlayer()}
-      </View>
-    )
-  }
+class PlayerStats extends Component {
+	
+	render() {
+		
+		return (
+			<View style = {styles.stats}>
+						<Image
+							style={{width: 50, height: 50, marginBottom: 20}}
+							source={this.props.selectedPlayer.url}
+						/>
+						<Text style = { styles.text }>{this.props.selectedPlayer.name}</Text>
+            <View style={styles.actions}>
+							<Text style = { styles.text }> skills: {this.props.selectedPlayer.skills}</Text>
+							<Text style = { styles.text }>{this.props.selectedPlayer.desciption}</Text>
+                <Text style = { styles.text }>money: {this.props.selectedPlayer.money}</Text>
+								<Text style = { styles.text }>intel: {this.props.selectedPlayer.intel}</Text>
+								<Text style = { styles.text }>{this.props.selectedPlayer.description}</Text>
+								<Text style = { styles.text }>item: {this.props.selectedPlayer.items.map(function(item){
+									return item;
+								}).join(" | ")} 
+								</Text>
+            </View>
+						<View style={styles.spaceShipStats}>
+								<Text style = { styles.text }>vaisseau: {this.props.selectedPlayer.spaceship.name} | </Text>
+								<Text style = { styles.text }>health: {this.props.selectedPlayer.spaceship.health} | </Text>
+								<Text style = { styles.text }>sloth: {this.props.selectedPlayer.spaceship.sloth} | </Text>
+								<Text style = { styles.text }>description: {this.props.selectedPlayer.spaceship.description}</Text>
+            </View>
+          </View>
+		)
+	}
 }
 
 const styles = StyleSheet.create({
-  main_container: {
-    flex: 1
-  },
-  loading_container: {    
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  scrollview_container: {
-    flex: 1
-  },
-  image: {
-    height: 169,
-    margin: 5
-  },
-  favorite_image: {
-    width: 40,
-    height: 40
-  },
-  title_text: {
-    fontWeight: 'bold',
-    fontSize: 35,
-    flex: 1,
-    flexWrap: 'wrap',
-    marginLeft: 5,
-    marginRight: 5,
-    marginTop: 10,
-    marginBottom: 10,
-    color: '#000000',
-    textAlign: 'center'
-  },
-  description_text: {
-    fontStyle: 'italic',
-    color: '#666666',
-    margin: 5,
-    marginBottom: 15
-  },
-  default_text: {
-    marginLeft: 5,
-    marginRight: 5,
-    marginTop: 5,
-  }
-})
+	
+	main_cointainer:{
+		backgroundColor: '#263238',
+		flex:5,
+		flexDirection:'column'
+	},
+	text:{   
+    textAlign:'center',
+		color: 'white',
+    fontSize: 15
+	},
+	spaceShipStats:{
+		flexDirection:'row'
+	},
+	players_main_cointainer:{
+		flexDirection:'row',
+		flex:2
+	},
+	player_container: {
+		flex:2
+	},
+	stats: {
+		textAlign:'center',
+		alignItems:'center',
+		backgroundColor:"#000",
+		flex:2
+	},
+	player: {
+	  height: 190,
+	  flexDirection: 'row',
+		borderWidth: 1,
+		borderColor: '#fff',
+	},
+	image: {
+	  width: 120,
+	  height: 180,
+	  margin: 5,
+	  backgroundColor: 'gray'
+	},
+	content_container: {
+	  flex: 1,
+	  margin: 5
+	},
+	header_container: {
+	  flex: 3,
+	  flexDirection: 'row'
+	},
+	title_text: {
+	  fontWeight: 'bold',
+	  color:"white",
+	  fontSize: 20,
+	  flex: 1,
+	  flexWrap: 'wrap',
+	  paddingRight: 5
+	},
+
+	description_container: {
+	  flex: 7,
+	  color:"white",
+	},
+	description_text: {
+	  fontStyle: 'italic',
+	  color: '#fff'
+	},
+	date_container: {
+	  flex: 1
+	},
+	date_text: {
+	  textAlign: 'right',
+	  fontSize: 14,
+		color: '#666666',
+		width:200,
+		flex:3
+	}
+  })
 
 const mapStateToProps = (state) => ({
 	selectedPlayer: state.player.selectedPlayer
 })
+
 
 export default connect(mapStateToProps)(PlayerStats)

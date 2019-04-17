@@ -11,7 +11,7 @@ import Api from '../API/Api.js'//test
 
 const CarteNavigator = createStackNavigator({
 	MainScreen: {
-		screen: Api,
+		screen: playerPicker,
 		navigationOptions: {
 			title:'playerPicker',
 			header: null,
