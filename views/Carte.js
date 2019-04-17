@@ -1,26 +1,38 @@
 import React, {Component} from 'react'
-import {Platform, View, Text, Image, StyleSheet} from 'react-native'
+import {Animated,Platform,TouchableOpacity, View, Text, Image, StyleSheet} from 'react-native'
 import Notifications from './Notifications'
 import {connect} from 'react-redux'
+import Fade from './fadeAnimation'
 import ActionMenu from './ActionMenu'
 import FlipCard from 'react-native-flip-card'
-
+import PlayerStats from './playerStats'
 
 
 class Carte extends Component {
 	constructor (props) {
 		super(props)
 		this.state = {
-		  flip: false
+		  flip: false,
+		  disabled:false,
+		  visible: false,
 		}
 	  }
 
 	  printText(isFlipEnd){
 		  if(isFlipEnd){
-			console.log('isFlipEnd', isFlipEnd)
-			
+			console.log('isFlipEnd', isFlipEnd)	
 		  }
-		
+	  }
+
+	  appear = () =>
+	  {
+		  if(!this.state.disabled){ 
+			this.setState({ disabled: true, visible:true})
+		  }
+		  else{
+			this.setState({ disabled: false, visible:false})
+		  }
+			    
 	  }
 
 	render() {
@@ -58,7 +70,13 @@ class Carte extends Component {
 						<View style={styles.ressources}><Text style={styles.text}>3</Text></View>
 						<View style={styles.ressources}><Text style={styles.text}>4</Text></View>
 				</View>
-				<Image style={styles.profile} source={this.props.selectedPlayer.url}/>
+				<Fade visible={this.state.visible} style={styles.stats}>
+					<PlayerStats/>
+				</Fade>
+
+				<TouchableOpacity style={{position:'absolute',bottom: 15,right:30,}} onPress={()=>this.appear()}>
+					<Image style={styles.profile} source={this.props.selectedPlayer.url}/>
+				</TouchableOpacity>
 				<ActionMenu/>
 			</View>
 		)
@@ -102,12 +120,18 @@ const styles = StyleSheet.create({
 		flex:3,
 		backgroundColor:"#000",
 	},
+	stats: {
+		position:'absolute',
+		textAlign:'center',
+		alignItems:'center',
+		backgroundColor:"#000",
+		flex:2,
+		bottom: 80,
+		right:5,
+	},
 	profile: {
 		width:60,
 		height:60,
-		position:'absolute',
-		bottom: 15,
-		right:30,
 		borderRadius:(Platform.OS == 'ios') ? 50 : 50
 	},
 	title_text: {

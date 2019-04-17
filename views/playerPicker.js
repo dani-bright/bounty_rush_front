@@ -21,7 +21,6 @@ class playerPicker extends Component {
 	componentDidMount() {
 		console.log(this.Players)
 	}
-
  
 
 	appear = () =>
@@ -60,7 +59,6 @@ class playerPicker extends Component {
 					inputRange: [ 0, 1 ],
 					outputRange: [ -59, 0 ]
 			});
-			const int = this.state.playerId
 		return (
 			<View style={styles.main_cointainer}>
 				<View style={styles.players_main_cointainer}>

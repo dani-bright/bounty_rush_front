@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import {ScrollView,Animated,TouchableOpacity,Button, View, Text, Image, StyleSheet} from 'react-native'
 import {connect} from 'react-redux'
 import players from '../players'
-import A from '../API/Api'
 
 
 class PlayerStats extends Component {
