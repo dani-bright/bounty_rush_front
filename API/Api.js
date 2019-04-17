@@ -12,7 +12,11 @@ let listPlayer;
 	let failed = 0;
 	let PlayerOn;
 	let WinCondition = { 'WinMoney': "1000000000", 'WinGlory': "100", "WinSkills": "10" }
-	let WinMoney = 1000000000;
+	let Zone = {
+	"1": ['30', '60', '85', '95', '100'],
+	"2": ['10', '35', '65', '90', '100'],
+	"3": ['10', '20', '45', '75', '100']
+	}
 
 class Api extends Component{
 	componentDidMount() {	
@@ -50,85 +54,94 @@ class Api extends Component{
 
 	
 
-	// let Zone = {
-	// "1": ['30', '60', '85', '95', '100'],
-	// "2": ['10', '35', '65', '90', '100'],
-	// "3": ['10', '20', '45', '75', '100']
-	// }
-
-	// //NOMBRE DE JOUEURS 
-	// socket.on('updateNumberOfPlayers', (numberOfPlayers) => {
-	// document.getElementById('players').innerText = numberOfPlayers;
-	// });
 
 
-	// //LANCEMENT DE LA PARTIE
-	// socket.on('startGame', (players) => {
-	// alert('The game will start now !');//Utiliser appear
-	// listPlayer = players.sort();
-	// action = 3;
-	// PlayerOn = (i == (listPLayer.length - 1)) ? listPlayer[0] : listPlayer[i];
-	// });
+    //NOMBRE DE JOUEURS 
+	NumberPlayers() {
+		 socket.on('updateNumberOfPlayers', (numberOfPlayers) => {
+		 document.getElementById('players').innerText = numberOfPlayers;
+		 });
+	}
 
 
+	//LANCEMENT DE LA PARTIE
+	StartGame() {
+		socket.on('startGame', (players) => {
 
-	// //EN ATTENTE DES JOUEURS
-	// socket.on('wait', (players) => {
-	// if (ready) {
-	// alert('Nous attendons encore ' + players + ' joueurs');//Utiliser appear
-	// }
+		alert('The game will start now !');//Utiliser appear
 
-	// });
-
-	// //NOTIFICATIONS
-	// socket.on('notification', (data) => {
-	// if (data.player.SocketId === Socket.Id) {
-	// let text = "<b>Vous</b> " + data.message + " " + data.complement.name;
-	// togglenotifications(text);
-	// }
-	// else {
-	// let text = data.player.name + " " + data.message + " " + data.complement.name;
-	// togglenotifications(text);
-	// }
-	// });
+		 listPlayer = players.sort();
+		 action = 3;
+		 PlayerOn = (i == (listPLayer.length - 1)) ? listPlayer[0] : listPlayer[i];
+		 });
+	}
 
 
 
-	// //FIN DE PARTIE
-	// socket.on('endGame', (players) => {
-	// if (socket.id === players.SocketId) {
-	// alert('tu as gagné');//afficher banderole win + classement
-	// }
-	// else {
-	// alert('tu as perdu');//afficher banderole loose + classement 
-	// }
-	// });
+     //EN ATTENTE DES JOUEURS
+	WaitPlayer() {
+
+		socket.on('wait', (players) => {
+		 if (ready) {
+		 alert('Nous attendons encore ' + players + ' joueurs');//Utiliser appear
+		 }
+
+		 });
+	}
+
+	//NOTIFICATIONS
+	Notifications() {
+		 socket.on('notification', (data) => {
+		 if (data.player.SocketId === Socket.Id) {
+		 let text = "<b>Vous</b> " + data.message + " " + data.complement.name;
+		 togglenotifications(text);
+		 }
+		 else {
+		 let text = data.player.name + " " + data.message + " " + data.complement.name;
+		 togglenotifications(text);
+		 }
+	 });
+	}
+
+
+     //FIN DE PARTIE
+	EndGame() {
+		 socket.on('endGame', (players) => {
+		 if (socket.id === players.SocketId) {
+		 alert('tu as gagné');//afficher banderole win + classement
+		 }
+		 else {
+		 alert('tu as perdu');//afficher banderole loose + classement 
+		 }
+		})
+	};
 
 
 
 
-	// //TROUVER LES MISSIONS/CIBLES PAR ELEMENT PERSONNALISE
-	// export const findMissionsByCustomField = () => {
-	// socket.emit('findMissionsByCustomField', { level: parseInt(document.getElementById('mission').value) }, (response) => {
-	// console.log(response);
-	// });
-	// };
+	//TROUVER LES MISSIONS/CIBLES PAR ELEMENT PERSONNALISE
+	findMissionsByCustomField() {
+		 socket.emit('findMissionsByCustomField', { level: parseInt(document.getElementById('mission').value) }, (response) => {
+		 console.log(response);
+		 });
+		 };
+	
 
-	// //TROUVER LES ITEMS PAR ELEMENT PERSONNALISE
-	// export const findItemsByCustomField = () => {
-	// socket.emit('findItemsByCustomField', { level: parseInt(document.getElementById('item').value) }, (response) => {
-	// console.log(response);
-	// });
-	// };
+	//TROUVER LES ITEMS PAR ELEMENT PERSONNALISE
+	findItemsByCustomField () {
+	 socket.emit('findItemsByCustomField', { level: parseInt(document.getElementById('item').value) }, (response) => {
+	 console.log(response);
+	 });
+	 };
 
-	// //TROUVER LES JOUEURS PAR LEUR ID
-	// export const findPlayerById = () => {
-	// socket.emit('findPlayerById', document.getElementById('player').value, (response) => {
-	// console.log(response);
-	// });
-	// };
+	//TROUVER LES JOUEURS PAR LEUR ID
+	 findPlayerById = () => {
+	 socket.emit('findPlayerById', document.getElementById('player').value, (response) => {
+	 console.log(response);
+	});
+	 };
 
-	// //TROUVER LES JOUEURS PAR ELMENT PERSONNALISE
+	 //TROUVER LES JOUEURS PAR ELMENT PERSONNALISE
 	// export const findPlayersByCustomField = () => {
 	// socket.emit('findPlayerByCustomField', { socketId: document.getElementById('socketId').value }, (response) => {
 	// console.log(response);
