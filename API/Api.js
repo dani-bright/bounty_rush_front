@@ -20,6 +20,7 @@ let Zone = {
 
 class Api extends Component {
 	componentDidMount() {
+		console.log("hey")
 		socket.on('connect', () => {
 			console.log("socket connected");
 			this.setState({ isConnected: true });
@@ -33,13 +34,14 @@ class Api extends Component {
 
 	AllPlayer() {
 		//LISTE DES PERSONNAGES
+		var allPlayers = null;
 		socket.on('SelectPlayers', (players) => {
 			if (!ready) {
 				console.log(players)
-				//return players
 			}
 			console.log(players)
 		});
+		return allPlayers
 	}
 
 
@@ -255,7 +257,6 @@ class Api extends Component {
 	}
 
 	render() {
-		this.AllPlayer()
 		return (
 			<View><Text>kjefzh</Text></View>
 		)

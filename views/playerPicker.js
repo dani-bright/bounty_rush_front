@@ -19,10 +19,8 @@ class playerPicker extends Component {
 	}
 
 	componentDidMount() {
-		console.log(this.Players)
 	}
  
-
 	appear = () =>
 	{
 			this.animatedValue.setValue(0);
@@ -52,7 +50,8 @@ class playerPicker extends Component {
 	}
 	
 	render() {
-		//this.Api.AllPlayer()
+		this.Api.AllPlayer()
+		console.log(this.Api.AllPlayer())
 		
 		const animationValue = this.animatedValue.interpolate(
 			{
