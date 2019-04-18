@@ -3,7 +3,7 @@ import {ScrollView,Animated,TouchableOpacity,Button, View, Text, Image, StyleShe
 import {connect} from 'react-redux'
 import {changeSelectedPlayer} from "../actions"
 import players from '../players'
-import A from '../API/Api'
+import socket from '../API/Api'
 import PlayerStats from './playerStats'
 
 
@@ -11,14 +11,18 @@ class playerPicker extends Component {
 	constructor()
 	{
 			super();
-			this.state = { disabled: false}
-			this.animatedValue = new Animated.Value(0);
-			this.Api= A;
-			this.Players= this.Api.AllPlayer();
-			
+			this.state = { disabled: false,players :[]	}
+			this.animatedValue = new Animated.Value(0);		
+			this.socket = socket
 	}
 
 	componentDidMount() {
+		this.socket.on('SelectPlayers', function (players) {
+			console.log(players);
+			this.setState({
+					players : players
+			});
+		}.bind(this));
 	}
  
 	appear = () =>
@@ -50,9 +54,6 @@ class playerPicker extends Component {
 	}
 	
 	render() {
-		this.Api.AllPlayer()
-		console.log(this.Api.AllPlayer())
-		
 		const animationValue = this.animatedValue.interpolate(
 			{
 					inputRange: [ 0, 1 ],
@@ -63,13 +64,13 @@ class playerPicker extends Component {
 				<View style={styles.players_main_cointainer}>
 					<ScrollView style={styles.player_container} >	
 						{
-								players.map((item, i) => (
+							this.state.players.map((item, i) => (
 									<View key={i}
 										style={styles.player}>
 										<TouchableOpacity onPress={()=>this.showStatsForPlayer(item)}>
 											<Image
-												style={styles.image}
-												source={item.url}
+												style={styles.urlimage}
+												source={item.urlImage}
 											/>
 										</TouchableOpacity>
 										<View style={styles.content_container}>
@@ -88,9 +89,9 @@ class playerPicker extends Component {
 					</ScrollView>
 					<Animated.View style = {[ styles.stats, { opacity: this.animatedValue, transform: [{ translateX: animationValue }] }]}>
 						<PlayerStats/>
+						<Button style={styles.date_container} onPress={() => this.toNextScreen()} title="ok" color="#841584"/>
           </Animated.View>
 				</View>
-				<Button style={styles.date_container} onPress={() => this.toNextScreen()} title="ok" color="#841584"/>
 			</View>
 		)
 	}
@@ -101,7 +102,6 @@ const styles = StyleSheet.create({
 	main_cointainer:{
 		backgroundColor: '#263238',
 		flex:5,
-		flexDirection:'column'
 	},
 	text:{   
     textAlign:'center',
