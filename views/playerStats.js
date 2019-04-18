@@ -7,12 +7,16 @@ import players from '../players'
 class PlayerStats extends Component {
 	
 	render() {
-		
+		const Images = {
+			"tata": require('../assets/ant.jpg'),
+			"toto": require('../assets/diego.jpg'),
+			"tutu": require('../assets/david.jpg')
+	};
 		return (
 			<View style = {styles.stats}>
 						<Image
 							style={{width: 50, height: 50, marginBottom: 20}}
-							source={this.props.selectedPlayer.url}
+							source={Images[this.props.selectedPlayer.name]}
 						/>
 						<Text style = { styles.text }>{this.props.selectedPlayer.name}</Text>
             <View style={styles.actions}>
@@ -21,10 +25,10 @@ class PlayerStats extends Component {
                 <Text style = { styles.text }>money: {this.props.selectedPlayer.money}</Text>
 								<Text style = { styles.text }>intel: {this.props.selectedPlayer.intel}</Text>
 								<Text style = { styles.text }>{this.props.selectedPlayer.description}</Text>
-								<Text style = { styles.text }>item: {this.props.selectedPlayer.items.map(function(item){
+								{/* <Text style = { styles.text }>item: {this.props.selectedPlayer.item.map(function(item){
 									return item;
 								}).join(" | ")} 
-								</Text>
+								</Text> */}
             </View>
 						<View style={styles.spaceShipStats}>
 								<Text style = { styles.text }>vaisseau: {this.props.selectedPlayer.spaceship.name} | </Text>

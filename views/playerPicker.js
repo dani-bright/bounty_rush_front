@@ -59,6 +59,11 @@ class playerPicker extends Component {
 					inputRange: [ 0, 1 ],
 					outputRange: [ -59, 0 ]
 			});
+			const Images = {
+				"tata": require('../assets/ant.jpg'),
+				"toto": require('../assets/diego.jpg'),
+				"tutu": require('../assets/david.jpg')
+		};
 		return (
 			<View style={styles.main_cointainer}>
 				<View style={styles.players_main_cointainer}>
@@ -69,8 +74,8 @@ class playerPicker extends Component {
 										style={styles.player}>
 										<TouchableOpacity onPress={()=>this.showStatsForPlayer(item)}>
 											<Image
-												style={styles.urlimage}
-												source={item.urlImage}
+												style={styles.image}
+												source={Images[item.name]}
 											/>
 										</TouchableOpacity>
 										<View style={styles.content_container}>
@@ -83,7 +88,7 @@ class playerPicker extends Component {
 											</View>
 										</View>
 									</View>
-
+ 
 								))
 							}
 					</ScrollView>

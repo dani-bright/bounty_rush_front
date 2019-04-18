@@ -37,6 +37,11 @@ class Carte extends Component {
 
 	render() {
 		console.log("la valeur du lancé est de "+this.props.diceThrowValue)
+		const Images = {
+			"tata": require('../assets/ant.jpg'),
+			"toto": require('../assets/diego.jpg'),
+			"tutu": require('../assets/david.jpg')
+	};
 		return (
 			<View style={styles.main_container}>
 				<View style={styles.second_container}>
@@ -75,7 +80,7 @@ class Carte extends Component {
 				</Fade>
 
 				<TouchableOpacity style={{position:'absolute',bottom: 15,right:30,}} onPress={()=>this.appear()}>
-					<Image style={styles.profile} source={this.props.selectedPlayer.url}/>
+					<Image style={styles.profile} source={Images[this.props.selectedPlayer.name]}/>
 				</TouchableOpacity>
 				<ActionMenu/>
 			</View>
