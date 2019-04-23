@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {diceLaunchValue} from "../actions"
-import {ScrollView,TouchableOpacity,Button, View, Text, Image, StyleSheet} from 'react-native'
+import {ImageBackground,Button, StyleSheet} from 'react-native'
 
 
 
@@ -58,10 +58,10 @@ class diceLauncher extends Component {
  
 	render() {
 		return (
-			<View style={styles.main_cointainer}>
+			<ImageBackground source={require('../assets/background.jpg')} style={styles.main_cointainer}>
 				{/* <Text style={styles.text}>{this.state.number}</Text> */}
 				<Button style={styles.date_container} onPress={() =>  this.getInputs() } title="Lancer" color="#841584"/>
-			</View>
+			</ImageBackground>
 		)
 	}
 }

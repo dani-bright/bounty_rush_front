@@ -1,11 +1,26 @@
 import React, {Component} from 'react'
-import {Animated,Platform,TouchableOpacity, View, Text, Image, StyleSheet} from 'react-native'
+import {ImageBackground,Platform,TouchableOpacity, View,Button, Text, Image, StyleSheet} from 'react-native'
 import Notifications from './Notifications'
 import {connect} from 'react-redux'
 import Fade from './fadeAnimation'
 import ActionMenu from './ActionMenu'
 import FlipCard from 'react-native-flip-card'
 import PlayerStats from './playerStats'
+import socket from '../API/Api'
+
+let listPlayer;
+let ready = false;
+let count = 0;
+let action = 3;
+let confirmed = 0;
+let failed = 0;
+let PlayerOn;
+let WinCondition = { 'WinMoney': "1000000000", 'WinGlory': "100", "WinSkills": "10" }
+let Zone = {
+	"1": ['30', '60', '85', '95', '100'],
+	"2": ['10', '35', '65', '90', '100'],
+	"3": ['10', '20', '45', '75', '100']
+}
 
 
 class Carte extends Component {
@@ -13,10 +28,15 @@ class Carte extends Component {
 		super(props)
 		this.state = {
 		  flip: false,
+		  action:3,
 		  disabled:false,
-		  visible: false,
+			visible: false,
 		}
-	  }
+		this.socket = socket
+	}
+	componentDidMount(){
+		
+	}
 
 	  printText(isFlipEnd){
 		  if(isFlipEnd){
@@ -36,14 +56,16 @@ class Carte extends Component {
 	  }
 
 	render() {
+		console.log(this.socket.id);
+
 		console.log("la valeur du lancé est de "+this.props.diceThrowValue)
 		const Images = {
-			"tata": require('../assets/ant.jpg'),
-			"toto": require('../assets/diego.jpg'),
-			"tutu": require('../assets/david.jpg')
+			"Le chasseur": require('../assets/ant.jpg'),
+			"Le Pilote": require('../assets/diego.jpg'),
+			"Le Soldat": require('../assets/david.jpg')
 	};
 		return (
-			<View style={styles.main_container}>
+			<ImageBackground source={require('../assets/background.jpg')} style={styles.main_container}>
 				<View style={styles.second_container}>
 					<FlipCard
 						flip={this.state.flip}
@@ -70,10 +92,10 @@ class Carte extends Component {
 				</View>
 
 				<View style={styles.ressources_container}>
-						<View style={styles.ressources}><Text style={styles.text}>money : {this.props.selectedPlayer.money}</Text></View>
-						<View style={styles.ressources}><Text style={styles.text}>2</Text></View> 
-						<View style={styles.ressources}><Text style={styles.text}>3</Text></View>
-						<View style={styles.ressources}><Text style={styles.text}>4</Text></View>
+						<View style={styles.ressources}><Text style={styles.text}>intel : {this.props.selectedPlayer.intel}</Text></View>
+						<View style={styles.ressources}><Text style={styles.text}>money : {this.props.selectedPlayer.money}</Text></View> 
+						<View style={styles.ressources}><Text style={styles.text}>level : {this.props.selectedPlayer.fame}</Text></View>
+						<View style={styles.ressources}><Text style={styles.text}>action : {this.props.actionPoints}</Text></View>
 				</View>
 				<Fade visible={this.state.visible} style={styles.stats}>
 					<PlayerStats/>
@@ -83,7 +105,8 @@ class Carte extends Component {
 					<Image style={styles.profile} source={Images[this.props.selectedPlayer.name]}/>
 				</TouchableOpacity>
 				<ActionMenu/>
-			</View>
+				{/* <Button title="kzfn" onPress={()=>this.props.navigation.navigate('ActionMenu')}/> */}
+			</ImageBackground>
 		)
 	}
 }
@@ -91,13 +114,11 @@ class Carte extends Component {
 const styles = StyleSheet.create({
 	main_container: {
 		color:'#fff',
-		backgroundColor: '#4454a6',
 		flexDirection: 'column',
 		position:'relative',
 		flex:10
 	},
 	second_container: {
-		backgroundColor: '#4454a6',
 		flexDirection: 'row',
 		flex:9
 	},
@@ -150,10 +171,10 @@ const styles = StyleSheet.create({
 	}
   })
 
-
   const mapStateToProps = (state) => ({
 	selectedPlayer: state.player.selectedPlayer,
-	diceThrowValue: state.player.diceThrowValue
+	diceThrowValue: state.player.diceThrowValue,
+	actionPoints: state.player.actionPoints
 })
 
 export default connect(mapStateToProps)(Carte)

@@ -1,18 +1,35 @@
 import React, {Component} from 'react'
 import { View, Text, Platform, StyleSheet, TouchableOpacity, Animated, ScrollView, Image } from 'react-native';
+import socket from '../API/Api'
 export default class Notifications extends Component{
     constructor()
     {
         super();
  
-        this.state = { valueArray: [], disabled: false }
+        this.state = { valueArray: [], disabled: false,text:"" }
  
         this.index = 0;
+        this.socket = socket
  
         this.animatedValue = new Animated.Value(0);
     }
+
+    componentDidMount(){
+        this.socket.on('notification', (data) => {
+			// if (data.player.SocketId === this.socket.Id) {
+			// 	let text = "<b>Vous</b> " + data.message + " " + data.complement.name;
+			// 	toggleNotification(text);
+			// }
+			// else {
+			// 	let text = data.player.name + " " + data.message + " " + data.complement.name;
+			// 	toggleNotification(text);
+            // }
+            this.toggleNotification();
+            this.setState({text:data.data.player.name + " " + data.data.message + " " + data.data.complement.name});
+		});
+    }
  
-    toggleNotification = (text) =>
+    toggleNotification = () =>
     {
         this.animatedValue.setValue(0);
  
@@ -49,7 +66,7 @@ export default class Notifications extends Component{
                 {
                     return(
                         <Animated.View key = { key } style = {[ styles.viewHolder, { opacity: this.animatedValue, transform: [{ translateY: animationValue }] }]}>
-                            <Text style = { styles.text }>Row { item.index }</Text>
+                            <Text style = { styles.text }>{ this.state.text }</Text>
                         </Animated.View>
                     );
                 }
@@ -57,7 +74,7 @@ export default class Notifications extends Component{
                 {
                     return(
                         <View key = { key } style = { styles.viewHolder }>
-                            <Text style = { styles.text }>Row { item.index }</Text>
+                            <Text style = { styles.text }>{ this.state.text }</Text>
                         </View>
                     );
                 }
@@ -72,10 +89,6 @@ export default class Notifications extends Component{
                         }
                         </View>
                     </ScrollView>
-         
-                    <TouchableOpacity activeOpacity = { 0.8 } style = { styles.btn } disabled = { this.state.disabled } onPress = { this.toggleNotification }>
-                        <Image source = { require('../assets/add.png') } style = { styles.btnImage }/>
-                    </TouchableOpacity>
                 </View>
             );
 	}
@@ -103,7 +116,7 @@ const styles = StyleSheet.create(
         text:
         {
             color: 'white',
-            fontSize: 25
+            fontSize: 15
         },
      
         btn:

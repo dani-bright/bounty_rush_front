@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {ScrollView,Animated,TouchableOpacity,Button, View, Text, Image, StyleSheet} from 'react-native'
+import {ScrollView,Animated,TouchableOpacity,Button, View,ImageBackground, Text, Image, StyleSheet} from 'react-native'
 import {connect} from 'react-redux'
 import {changeSelectedPlayer} from "../actions"
 import players from '../players'
@@ -18,11 +18,11 @@ class playerPicker extends Component {
 
 	componentDidMount() {
 		this.socket.on('SelectPlayers', function (players) {
-			console.log(players);
 			this.setState({
 					players : players
 			});
 		}.bind(this));
+		
 	}
  
 	appear = () =>
@@ -45,11 +45,13 @@ class playerPicker extends Component {
 			});    
 	}
 	toNextScreen = () => {
+		this.socket.emit('choosePlayer', this.props.selectedPlayer._id,this.socket.id)
 		this.props.navigation.navigate('diceLauncherScreen')
 	}
 
 	showStatsForPlayer = (player) => {
 		this.props.changePlayer(player)
+
 		this.appear()
 	}
 	
@@ -60,13 +62,12 @@ class playerPicker extends Component {
 					outputRange: [ -59, 0 ]
 			});
 			const Images = {
-				"tata": require('../assets/ant.jpg'),
-				"toto": require('../assets/diego.jpg'),
-				"tutu": require('../assets/david.jpg')
+				"Le chasseur": require('../assets/ant.jpg'),
+				"Le Pilote": require('../assets/diego.jpg'),
+				"Le Soldat": require('../assets/david.jpg')
 		};
 		return (
-			<View style={styles.main_cointainer}>
-				<View style={styles.players_main_cointainer}>
+				<ImageBackground source={require('../assets/background.jpg')} style={styles.players_main_cointainer}>
 					<ScrollView style={styles.player_container} >	
 						{
 							this.state.players.map((item, i) => (
@@ -96,18 +97,13 @@ class playerPicker extends Component {
 						<PlayerStats/>
 						<Button style={styles.date_container} onPress={() => this.toNextScreen()} title="ok" color="#841584"/>
           </Animated.View>
-				</View>
-			</View>
+				</ImageBackground>
 		)
 	}
 }
 
 const styles = StyleSheet.create({
 	
-	main_cointainer:{
-		backgroundColor: '#263238',
-		flex:5,
-	},
 	text:{   
     textAlign:'center',
 		color: 'white',
@@ -117,11 +113,14 @@ const styles = StyleSheet.create({
 		flexDirection:'row'
 	},
 	players_main_cointainer:{
+		backgroundColor: '#263238',
 		flexDirection:'row',
-		flex:2
+		flex:1,
+		width: null,
+    height: null,
 	},
 	player_container: {
-		flex:2
+		flex: 5 
 	},
 	stats: {
 		textAlign:'center',

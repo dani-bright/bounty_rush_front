@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-const socket = io('http://565c0600.ngrok.io', {
+const socket = io('https://76a70d90.ngrok.io', {
 	transports: ['websocket'],
 	})
 socket.connect();

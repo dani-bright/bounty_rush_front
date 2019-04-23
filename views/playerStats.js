@@ -8,9 +8,9 @@ class PlayerStats extends Component {
 	
 	render() {
 		const Images = {
-			"tata": require('../assets/ant.jpg'),
-			"toto": require('../assets/diego.jpg'),
-			"tutu": require('../assets/david.jpg')
+			"Le chasseur": require('../assets/ant.jpg'),
+			"Le Pilote": require('../assets/diego.jpg'),
+			"Le Soldat": require('../assets/david.jpg')
 	};
 		return (
 			<View style = {styles.stats}>
@@ -67,7 +67,6 @@ const styles = StyleSheet.create({
 		textAlign:'center',
 		alignItems:'center',
 		backgroundColor:"#000",
-		flex:2
 	},
 	player: {
 	  height: 190,

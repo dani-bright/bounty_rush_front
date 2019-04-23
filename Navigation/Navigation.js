@@ -4,7 +4,8 @@ import  {createAppContainer, createBottomTabNavigator, createStackNavigator} fro
 import Carte from '../views/Carte'
 import playerPicker from '../views/playerPicker'
 import diceLauncher from '../views/diceLauncher'
-import Api from '../API/Api.js'//test
+import ActionMenu from '../views/ActionMenu'
+
 
 
 
@@ -30,7 +31,15 @@ const CarteNavigator = createStackNavigator({
 			title:'dice Launcher',
 			header: null,
 		}
+	},
+	ActionMenu: {
+		screen: ActionMenu,
+		navigationOptions: {
+			title:'menu',
+			header: null,
+		}
 	}
+
 
 })
 
